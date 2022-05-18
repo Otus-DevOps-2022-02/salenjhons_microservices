@@ -1,7 +1,6 @@
 {
   "variables":{
-
-
+          "service_account_key_file": "./key.json",
           "folder_id": "b1gu46nj0bmnfamlje4n"
       },
 
@@ -10,7 +9,6 @@
       "type": "yandex",
       "folder_id": "{{user `folder_id`}}",
       "source_image_family": "ubuntu-1804-lts",
-      "token":     "AQAAAABekQi3AATuwc9di_Oja0CGoaas4TtehnI",
       "image_name": "reddit-app-base-{{timestamp}}",
       "image_family": "reddit-app-base",
       "ssh_username": "ubuntu",
