@@ -1,0 +1,28 @@
+{
+  "variables":{
+          "service_account_key_file": "./key.json",
+          "folder_id": "b1gu46nj0bmnfamlje4n"
+      },
+
+  "builders":[
+    {
+      "type": "yandex",
+      "folder_id": "{{user `folder_id`}}",
+      "source_image_family": "ubuntu-1804-lts",
+      "image_name": "reddit-app-base-{{timestamp}}",
+      "image_family": "reddit-app-base",
+      "ssh_username": "ubuntu",
+      "platform_id": "standard-v1",
+      "instance_cores": "{{user `yc_instance_cores`}}",
+      "disk_size_gb": "{{user `yc_disk_size`}}",
+      "use_ipv4_nat":"true"
+    }
+  ],
+
+   "provisioners":[
+     {
+       "type": "ansible",
+       "playbook_file": "/home/user/otus_git/salenjhons_microservices/docker-monolith/infra/ansible/site.yml"
+     }
+   ]
+}
