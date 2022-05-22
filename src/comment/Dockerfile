@@ -1,4 +1,4 @@
-From ruby:2.2
+FROM ruby:2.2
 RUN apt-get update -qq && \
     apt-get install -y build-essential
 
@@ -12,6 +12,5 @@ COPY . $APP_HOME
 
 ENV COMMENT_DATABASE_HOST comment_db
 ENV COMMENT_DATABASE comments
-ENV NETWORK_ALIAS
 
 CMD ["puma"]
