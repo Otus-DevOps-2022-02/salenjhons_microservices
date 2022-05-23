@@ -4,13 +4,10 @@
 *.tfstate.backup
 *tfvars
 .terraform/
-/jdauphant.nginx/
 *key.json
 ~/otus_git/salenjhons_infra/ansible/vault.key
 .vagrant/
 *.log
 *.pyc
-.molecule
 .cache
 .pytest_cache
-Vagrant & molecule
