@@ -34,6 +34,8 @@ test_integration_job:
 staging:
   stage: stage
   when: manual
+  only:
+    - /^\d+\.\.d+\.\d+/
   script:
     - echo 'Deploy'
   environment:
