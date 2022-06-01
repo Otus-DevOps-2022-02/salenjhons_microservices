@@ -13,6 +13,7 @@ variables:
 before_script:
   - cd reddit
   - bundle install
+  - apt update
   - apt install python3-pip
   - pip install docker-compose
 
