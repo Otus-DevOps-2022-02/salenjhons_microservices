@@ -14,7 +14,7 @@ before_script:
   - cd reddit
   - bundle install
   - apt update
-  - python3 -m pip install -y
+  - python -m pip install -y
   - pip install docker-compose
 
 build_job:
