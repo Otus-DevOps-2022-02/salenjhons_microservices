@@ -17,7 +17,7 @@ before_script:
 build_job:
   stage: build
   script:
-    - docker-compose -f /src/docker-compose.yml
+    - docker-compose -f /src/docker-compose.yml up -d
 
 test_unit_job:
   stage: test
