@@ -6,11 +6,7 @@ COPY . /app
 RUN apk --no-cache --update add build-base && \
     pip install --upgrade pip && \
     pip install -r /app/requirements.txt && \
-    apk del build-base && \
-    apk update -y && \
-    apk install build-essential && \
-    apk update -y && \
-    apk install -y musl-dev
+    apk del build-base
 
 
 ENV POST_DATABASE_HOST post_db
