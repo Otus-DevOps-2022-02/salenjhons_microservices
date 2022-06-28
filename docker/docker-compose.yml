@@ -12,7 +12,7 @@ services:
 
   ui:
     build: ./ui
-    image: ${USERNAME}/ui:${VERSION}
+    image: ${USERNAME}/ui:logging
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     ports:
@@ -27,7 +27,7 @@ services:
 
   post:
     build: ./post-py
-    image: ${USERNAME}/post:${VERSION}
+    image: ${USERNAME}/post:logging
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
@@ -41,7 +41,7 @@ services:
 
   comment:
     build: ./comment
-    image: ${USERNAME}/comment:${VERSION}
+    image: ${USERNAME}/comment:logging
     environment:
       - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
