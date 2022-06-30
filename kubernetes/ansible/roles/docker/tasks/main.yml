@@ -1,0 +1,20 @@
+---
+- name: Add apt-key repository
+  apt-key:
+    url: https://download.docker.com/linux/{{ ansible_distribution | lower }}/gpg
+    id: 9DC858229FC7DD38854AE2D88D81803C0EBFCD88
+    state: present
+
+- name: Configure docker repository
+  apt_repository:
+    repo: "deb [arch=amd64] https://download.docker.com/linux/{{ ansible_distribution | lower }} {{ ansible_distribution_release }} stable"
+    state: present
+    update_cache: true
+
+- name: Install docker
+  package:
+    name:
+      - "{{ docker_ce_version }}"
+      - "{{ docker_version }}"
+      - containerd.io
+    state: present

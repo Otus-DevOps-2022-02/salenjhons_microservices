@@ -1,0 +1,15 @@
+---
+- name: Disable SWAP
+  shell: |
+    swapoff -a
+- name: Remove Swap from fstab
+  mount:
+    name: swap
+    fstype: swap
+    state: absent
+
+- name: Disable the ufw firewall
+  service:
+    name: ufw
+    state: stopped
+    enabled: false
