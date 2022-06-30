@@ -11,21 +11,39 @@ services:
           - comment_db
 
   ui:
-    build: ./ui
+  #  build: ./ui
     image: ${USERNAME}/ui:${VERSION}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     ports:
       - ${UIPORT}:${UIPORT}/tcp
     networks:
       - front_net
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.ui
+
   post:
-    build: ./post-py
+   # build: ./post-py
     image: ${USERNAME}/post:${VERSION}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
       - front_net
       - back_net
+    logging:
+      driver: "fluentd"
+      options:
+        fluentd-address: localhost:24224
+        tag: service.post
+
   comment:
-    build: ./comment
+    #build: ./comment
     image: ${USERNAME}/comment:${VERSION}
+    environment:
+      - ZIPKIN_ENABLED=${ZIPKIN_ENABLED}
     networks:
       - front_net
       - back_net
@@ -70,7 +88,7 @@ services:
       - '9115:9115'
     networks:
      - back_net
-      - front_net
+     - front_net
 
 
 volumes:

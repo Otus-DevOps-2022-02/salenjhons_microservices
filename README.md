@@ -1,3 +1,38 @@
+Homework #16 (logging-1)
+
+Для сборов логов из Docker-контейнеров используется стек Elasticsearch-Fluentd-Kibana (EFK) Стек запускается через docker-compose docker/docker-compose-logging.yml. Конетейнер с конфигурацией Fluentd собирается из Dockerfile в logging/fluentd. Сборка конейнеров приложений:
+
+export USER_NAME='логин на Docker Hub'
+cd ./src/ui && bash docker_build.sh && docker push $USER_NAME/ui
+cd ../post-py && bash docker_build.sh && docker push $USER_NAME/post
+cd ../comment && bash docker_build.sh && docker push $USER_NAME/comment
+Запуск EFK и приложения (выставить переменные среды в .env):
+
+cd logging/fluentd/
+docker build -t $USER_NAME/fluentd .
+cd ../../docker/
+docker-compose -f docker-compose-logging.yml up -d
+docker-compose -f docker-compose.yml up -d
+В конфигурацию Fluentd добавлены фильтры для структурированных логов приложения post и фильтры с grok для неструктурированных логов приложения ui. Использовался обновленный сиснтаксис плагина fluent-plugin-grok-parser В docker-compose приложения добавлены environment переменные.
+
+Сбор трейсов с Zipkin
+Для сбора трейсов добавляем контейнер zipkin в docker/docker-compose-logging.yml, отправка трейсов в приложениях включается env-переменной ZIPKIN_ENABLED. Добавляем сети приложений в docker/docker-compose-logging.yml для доступа приложений к конетенеру.
+
+Фильтр неструктурированных логов приложения ui:
+
+<filter service.ui>
+  @type parser
+  key_name message
+  format grok
+  <parse>
+    @type grok
+    <grok>
+      pattern service=%{WORD:service} \| event=%{WORD:event} \| path=%{URIPATHPARAM:request} \| request_id=%{GREEDYDATA:request_id} \| remote_addr=%{IP:client} \| method=.%{WORD:method} \| response_status=%{NUMBER:response_status}
+    </grok>
+  </parse>
+  reserve_data true
+</filter>
+
 Homework #15 (monitoring-1)
 
 Созданы Dockerfile и конфигурация Prometheus. Команда для сборки всех образов приложений:
