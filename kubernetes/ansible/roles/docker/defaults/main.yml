@@ -1,0 +1,4 @@
+---
+# defaults file for docker
+docker_ce_version: docker-ce=5:19.03.15~3-0~ubuntu-focal
+docker_version: docker-ce-cli=5:19.03.15~3-0~ubuntu-focal

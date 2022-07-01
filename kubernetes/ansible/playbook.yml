@@ -1,0 +1,20 @@
+---
+- name: For all hosts
+  hosts: all
+  become: true
+  roles:
+    - os_prepare
+    - docker
+    - base_kube
+
+- name: master node
+  hosts: master
+  become: true
+  roles:
+    - master_kube
+
+- name: worker node
+  hosts: worker
+  become: true
+  roles:
+    - worker_kube
