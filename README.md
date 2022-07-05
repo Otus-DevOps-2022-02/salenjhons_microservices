@@ -1,3 +1,65 @@
+Homework #18 (kubernetes-2)
+
+Запуск кластера и приложения.
+
+Устновлен minikube на локальный хост.
+minikube start --kubernetes-version 1.19.7
+
+Созданы деплойменты для компонентов:
+ui (ui-deployment)
+post (post-deployment)
+comment (commment-deployment)
+mongodb (mongodb-deployment)
+
+Запуск деплойментов:
+kubectl apply -f ./kubernetes/reddit
+
+Проброской порта проверяем доступность ui компонента:
+
+kubectl get pods --selector component=ui
+kubectl port-forward <pod-name> 8080:9292
+
+Для связи компонентов между собой и с внешним миром используется объект Service:
+post-service.yml
+comment-service.yml
+mongodb-service.yml
+ui-service.yml
+
+Для доступа к одному ресурсу под разными созданые манифесты:
+post-mongodb-service.yml
+comment-mongodb-service.yml
+
+
+Для проверки логов на post поде:
+kubectl logs <pod-name>
+
+
+Для доступа к ui-сервису из вне добавляем тип NodePort на каждой ноде кластера открывает порт из
+диапазона 30000-32767 и переправляет трафик с этого порта на тот,
+который указан в targetPort Pod :
+
+spec:
+ type: NodePort
+ ports:
+ - nodePort: 32092
+ port: 9292
+ protocol: TCP
+ targetPort: 9292
+ selector:
+
+Выдает web-страницы с сервисами, которые были помечены типом NodePort
+minikube service ui
+
+Создан свой Namespace dev:
+dev-namespace.yml
+
+Запуск приложения в namespace dev:
+kubectl apply -n dev -f .
+
+Написан манифест ~kubernetes/terraform/k8s/main.tf для разворачивания кубер кластера в яндекс облаке.
+
+
+
 Homework #17 (kubernetes-1)
 
 Установка Docker на ubuntu 18.04:
