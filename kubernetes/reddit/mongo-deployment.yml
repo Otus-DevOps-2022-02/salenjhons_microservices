@@ -31,6 +31,6 @@ spec:
           mountPath: /data/db
       volumes:
       - name: mongo-persistent-storage
+              #emptyDir: {} #При создании пода с такимтипом просто создается пустой docker volume
         persistentVolumeClaim:
           claimName: mongo-pvc
-        #emptyDir: {} #При создании пода с такимтипом просто создается пустой docker volume
