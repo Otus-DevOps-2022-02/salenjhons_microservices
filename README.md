@@ -1,3 +1,11 @@
+Homework #19 (kubernetes-3)
+
+Установлен Ingress Controller
+Настроен Ingress на прием только HTTPS трафика
+Настроен Network Policy
+Создан ресурс дискового хранилища в YC. Хранилище добавлен  к кластеру в виде PersistentVolume и подключили при помоши PersistantVolumeClaim  к деплою mongo.
+ui-secret описан в виде манифеста ui-secret.yml
+
 Homework #18 (kubernetes-2)
 
 Запуск кластера и приложения.
