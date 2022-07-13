@@ -59,7 +59,7 @@ resource "yandex_kubernetes_node_group" "reddit-node-group" {
     }
 
     boot_disk {
-      type = "network-hdd"
+      type = "network-ssd"
       size = 64
     }
 

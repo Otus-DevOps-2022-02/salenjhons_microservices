@@ -7,12 +7,15 @@ metadata:
     app: reddit
     component: ui
 spec:
+  #type: LoadBalancer
   type: NodePort
   ports:
  # - nodePort: 32092
   - port: 9292
+  #- port: 80 # port that open on loadbalancer
+  #  nodePort: 32092 # Также на ноде будет открыт порт, но нам он не нужен и его можно даже убрать
     protocol: TCP
-    targetPort: 9292
+    targetPort: 9292 # Pods port
   selector:
     app: reddit
     component: ui
