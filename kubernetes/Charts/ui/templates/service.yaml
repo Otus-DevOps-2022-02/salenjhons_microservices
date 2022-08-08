@@ -1,0 +1,23 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-{{ .Chart.Name }}
+  labels:
+    app: reddit
+    component: ui
+    release: {{ .Release.Name }}
+spec:
+  #type: LoadBalancer
+  type: NodePort
+  ports:
+ # - nodePort: 32092
+  - port: {{ .Values.service.externalPort }}
+  #- port: 80 # port that open on loadbalancer
+  #  nodePort: 32092 # Также на ноде будет открыт порт, но нам он не нужен и его можно даже убрать
+    protocol: TCP
+    targetPort: {{ .Values.service.internalPort }} # Pods port
+  selector:
+    app: reddit
+    component: ui
+    release: {{ .Release.Name }}
